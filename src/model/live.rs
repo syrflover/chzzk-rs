@@ -202,8 +202,8 @@ pub struct LiveStatus {
     pub accumulate_count: u64,
     pub paid_promotion: bool,
     pub adult: bool,
-    pub chat_channel_id: String,
-    pub category_type: String,
+    pub chat_channel_id: Option<String>,
+    pub category_type: Option<String>,
     pub live_category: Option<String>,
     pub live_category_value: Option<String>,
     pub live_polling_status: LivePollingStatus,
@@ -255,6 +255,42 @@ impl TryFrom<sealed::LiveStatus> for LiveStatus {
             chat_available_condition,
             min_follower_minute,
         })
+    }
+}
+
+impl From<LiveDetail> for LiveStatus {
+    fn from(
+        LiveDetail {
+            inherit,
+            status,
+            close_date: _,
+            chat_active,
+            chat_available_group,
+            paid_promotion,
+            chat_available_condition,
+            min_follower_minute,
+            live_polling_status,
+            user_adult_status,
+        }: LiveDetail,
+    ) -> Self {
+        Self {
+            live_title: inherit.live_title,
+            status,
+            concurrent_user_count: inherit.concurrent_user_count,
+            accumulate_count: inherit.accumulate_count,
+            paid_promotion,
+            adult: inherit.adult,
+            chat_channel_id: inherit.chat_channel_id,
+            category_type: inherit.category_type,
+            live_category: inherit.live_category,
+            live_category_value: inherit.live_category_value,
+            live_polling_status,
+            user_adult_status,
+            chat_active,
+            chat_available_group,
+            chat_available_condition,
+            min_follower_minute,
+        }
     }
 }
 
@@ -442,10 +478,10 @@ pub(crate) mod sealed {
         pub(super) adult: bool,
 
         #[serde(rename = "chatChannelId")]
-        pub(super) chat_channel_id: String,
+        pub(super) chat_channel_id: Option<String>,
 
         #[serde(rename = "categoryType")]
-        pub(super) category_type: String,
+        pub(super) category_type: Option<String>,
 
         #[serde(rename = "liveCategory")]
         pub(super) live_category: Option<String>,
