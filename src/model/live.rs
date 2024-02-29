@@ -74,6 +74,8 @@ pub enum LivePlaybackStatusType {
     Started,
     #[serde(rename = "ENDED")]
     Ended,
+    #[serde(rename = "STOPPED")]
+    Stopped,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
