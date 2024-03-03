@@ -19,6 +19,7 @@ pub enum CategoryType {
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum LivePollingStatusType {
     Started,
+    Stopped,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
