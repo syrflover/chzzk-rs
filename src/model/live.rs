@@ -18,6 +18,7 @@ pub enum CategoryType {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum LivePollingStatusType {
+    Ended,
     Started,
     Stopped,
 }
@@ -70,12 +71,10 @@ pub struct LivePlaybackServiceMeta {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum LivePlaybackStatusType {
-    #[serde(rename = "STARTED")]
     Started,
-    #[serde(rename = "ENDED")]
     Ended,
-    #[serde(rename = "STOPPED")]
     Stopped,
 }
 
